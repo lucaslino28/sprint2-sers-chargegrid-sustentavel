@@ -91,7 +91,7 @@ Energia total = demanda total x duração da simulação
 ### Energia solar utilizada
 
 ```text
-Energia solar utilizada = menor valor entre geração solar disponível e demanda total
+Energia solar utilizada = min(potência solar disponível, potência consumida pelo hub) x duração da simulação
 ```
 
 ### Energia necessária da rede elétrica
@@ -109,7 +109,7 @@ Percentual renovável = energia solar utilizada / energia total x 100
 ### Economia estimada
 
 ```text
-Economia estimada = energia solar utilizada x tarifa atual
+A economia estimada representa o custo evitado no período simulado pelo uso da energia solar, sem considerar custos de instalação, manutenção ou depreciação do sistema fotovoltaico.
 ```
 
 ## Decisão Sustentável
@@ -160,7 +160,7 @@ git clone https://github.com/lucaslino28/sprint2-sers-chargegrid-sustentavel.git
 2. Acesse a pasta do projeto:
 
 ```bash
-cd ChargeGrid-Sustentavel
+cd sprint2-sers-chargegrid-sustentavel
 ```
 
 3. Instale as dependências:

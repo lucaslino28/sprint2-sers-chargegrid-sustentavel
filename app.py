@@ -13,9 +13,11 @@ st.sidebar.header("Parâmetros da Simulação Sustentável")
 hora_simulada = st.sidebar.slider("Horário da Simulação (Hora do Dia)", 0, 23, 14)
 veiculos_conectados = st.sidebar.number_input("Veículos Elétricos Conectados", min_value=1, max_value=20, value=5)
 limite_rede = st.sidebar.slider("Capacidade Máxima da Rede Elétrica (kW)", 20, 150, 70)
-geracao_solar_disponivel = st.sidebar.slider("Geração Solar Disponível (kW)", 0, 100, 35)
+geracao_solar_disponivel = st.sidebar.slider("Potência Solar Disponível (kW)", 0, 100, 35)
 
 potencia_nominal_veiculo = 11
+
+demanda_total = veiculos_conectados * potencia_nominal_veiculo
 
 if 18 <= hora_simulada <= 21:
     tipo_tarifa = "Horário de Pico"
@@ -26,12 +28,25 @@ else:
     custo_kwh = 0.45
     status_periodo = "Período Normal"
 
-demanda_total = veiculos_conectados * potencia_nominal_veiculo
+if demanda_total > limite_rede or status_periodo == "Período Crítico":
+    potencia_permitida_por_veiculo = min(
+        potencia_nominal_veiculo,
+        round(limite_rede / veiculos_conectados, 2)
+    )
+    potencia_permitida_por_veiculo = max(2.2, potencia_permitida_por_veiculo)
+    decisao_sustentavel = "Modo de Eficiência Ativado: potência limitada para reduzir sobrecarga na rede elétrica."
+    status_sustentavel = "Atenção / Otimização Necessária"
+else:
+    potencia_permitida_por_veiculo = potencia_nominal_veiculo
+    decisao_sustentavel = "Operação Sustentável: energia solar aproveitada e recarga mantida em condição eficiente."
+    status_sustentavel = "Operação Eficiente"
+
+carga_total_hub = potencia_permitida_por_veiculo * veiculos_conectados
 
 duracao_simulacao_horas = 1
 
-energia_total_kwh = demanda_total * duracao_simulacao_horas
-energia_solar_utilizada_kwh = min(geracao_solar_disponivel, demanda_total) * duracao_simulacao_horas
+energia_total_kwh = carga_total_hub * duracao_simulacao_horas
+energia_solar_utilizada_kwh = min(geracao_solar_disponivel, carga_total_hub) * duracao_simulacao_horas
 energia_rede_necessaria_kwh = max(0, energia_total_kwh - energia_solar_utilizada_kwh)
 
 percentual_renovavel = (energia_solar_utilizada_kwh / energia_total_kwh) * 100
@@ -131,7 +146,7 @@ st.subheader("Resumo da Sustentabilidade")
 st.write(
     f"Nesta simulação, a estação possui {veiculos_conectados} veículos conectados, "
     f"com uma demanda total estimada de {demanda_total:.1f} kW. "
-    f"A geração solar disponível é de {geracao_solar_disponivel:.1f} kW. "
+    f"A potência solar disponível é de {geracao_solar_disponivel:.1f} kW. "
     f"Considerando 1 hora de simulação, isso permite utilizar {energia_solar_utilizada_kwh:.1f} kWh de energia renovável. "
     f"Isso representa {percentual_renovavel:.1f}% da demanda atendida por fonte renovável "
     f"e uma economia estimada de R$ {economia_estimativa:.2f} no período simulado."
