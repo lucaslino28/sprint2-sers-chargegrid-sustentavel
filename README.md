@@ -15,7 +15,7 @@ Desenvolver um protótipo funcional simulado capaz de demonstrar a viabilidade t
 A aplicação permite visualizar:
 
 - demanda total dos veículos conectados;
-- geração solar disponível;
+- potência solar disponível;
 - energia renovável utilizada;
 - energia necessária da rede elétrica;
 - percentual de atendimento por fonte renovável;
@@ -27,7 +27,7 @@ A aplicação permite visualizar:
 - Simulação de veículos elétricos conectados à estação;
 - Configuração do horário da simulação;
 - Definição da capacidade máxima da rede elétrica;
-- Simulação da geração solar disponível;
+- Simulação da potência solar disponível;
 - Cálculo da demanda total dos veículos;
 - Cálculo da energia solar utilizada;
 - Cálculo da energia necessária da rede elétrica;
@@ -46,28 +46,26 @@ A aplicação permite visualizar:
 
 A aplicação foi estruturada como uma simulação funcional em Python, com interface visual desenvolvida em Streamlit.
 
-Fluxo lógico da solução:
+### Fluxo lógico da solução
 
-```text
-[Usuário]
-   ↓
-[Interface Streamlit]
-   ↓
-[Entrada dos parâmetros da simulação]
-   ↓
-[Motor de cálculo energético]
-   ↓
-[Decisão do motor sustentável]
-   ↓
-[Indicadores energéticos e resumo da operação]
+```mermaid
+flowchart TD
+    A[Usuário] --> B[Interface Streamlit]
+    B --> C[Entrada dos parâmetros da simulação]
+    C --> D[Motor de cálculo energético]
+    D --> E[Decisão do motor sustentável]
+    E --> F[Indicadores energéticos]
+    F --> G[Resumo da operação]
 ```
 
-Fluxo energético simulado:
+### Fluxo energético simulado
 
-```text
-[Geração Solar Fotovoltaica] ─┐
-                              ├──> [Hub de Recarga] ───> [Veículos Elétricos]
-[Rede Elétrica] ──────────────┘
+```mermaid
+flowchart LR
+    A[Potência Solar Fotovoltaica] --> C[Hub de Recarga]
+    B[Rede Elétrica] --> C
+    C --> D[Veículos Elétricos]
+    C --> E[Indicadores de Sustentabilidade]
 ```
 
 ## Lógica dos Cálculos
@@ -85,7 +83,7 @@ Demanda total = quantidade de veículos conectados x 11 kW
 ### Energia total no período simulado
 
 ```text
-Energia total = demanda total x duração da simulação
+Energia total = potência consumida pelo hub x duração da simulação
 ```
 
 ### Energia solar utilizada
@@ -108,9 +106,7 @@ Percentual renovável = energia solar utilizada / energia total x 100
 
 ### Economia estimada
 
-```text
 A economia estimada representa o custo evitado no período simulado pelo uso da energia solar, sem considerar custos de instalação, manutenção ou depreciação do sistema fotovoltaico.
-```
 
 ## Decisão Sustentável
 
@@ -180,7 +176,7 @@ Após executar o comando, a aplicação será aberta no navegador.
 ## Estrutura do Projeto
 
 ```text
-ChargeGrid-Sustentavel/
+sprint2-sers-chargegrid-sustentavel/
 ├── app.py
 ├── README.md
 ├── requirements.txt
