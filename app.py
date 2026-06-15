@@ -33,7 +33,6 @@ if demanda_total > limite_rede or status_periodo == "Período Crítico":
         potencia_nominal_veiculo,
         round(limite_rede / veiculos_conectados, 2)
     )
-    potencia_permitida_por_veiculo = max(2.2, potencia_permitida_por_veiculo)
     decisao_sustentavel = "Modo de Eficiência Ativado: potência limitada para reduzir sobrecarga na rede elétrica."
     status_sustentavel = "Atenção / Otimização Necessária"
 else:

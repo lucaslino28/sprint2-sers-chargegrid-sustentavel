@@ -106,7 +106,10 @@ Percentual renovável = energia solar utilizada / energia total x 100
 
 ### Economia estimada
 
+```text
+Economia estimada = energia solar utilizada x tarifa atual.
 A economia estimada representa o custo evitado no período simulado pelo uso da energia solar, sem considerar custos de instalação, manutenção ou depreciação do sistema fotovoltaico.
+```
 
 ## Decisão Sustentável
 
