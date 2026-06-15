@@ -52,18 +52,6 @@ energia_rede_necessaria_kwh = max(0, energia_total_kwh - energia_solar_utilizada
 percentual_renovavel = (energia_solar_utilizada_kwh / energia_total_kwh) * 100
 economia_estimativa = energia_solar_utilizada_kwh * custo_kwh
 
-if demanda_total > limite_rede or status_periodo == "Período Crítico":
-    potencia_permitida_por_veiculo = round(limite_rede / veiculos_conectados, 2)
-    potencia_permitida_por_veiculo = max(2.2, potencia_permitida_por_veiculo)
-    decisao_sustentavel = "Modo de Eficiência Ativado: potência limitada para reduzir sobrecarga na rede elétrica."
-    status_sustentavel = "Atenção / Otimização Necessária"
-else:
-    potencia_permitida_por_veiculo = potencia_nominal_veiculo
-    decisao_sustentavel = "Operação Sustentável: energia solar aproveitada e recarga mantida em condição eficiente."
-    status_sustentavel = "Operação Eficiente"
-
-carga_total_hub = potencia_permitida_por_veiculo * veiculos_conectados
-
 st.subheader("Indicadores Energéticos da Estação de Recarga")
 
 col1, col2, col3, col4 = st.columns(4)
@@ -131,12 +119,12 @@ with col_fluxo1:
 with col_fluxo2:
     st.write("Logs Técnicos da Simulação:")
     st.code(
-        f"[{datetime.datetime.now().strftime('%H:%M:%S')}] SolarGeneration.read -> {geracao_solar_disponivel} kW\n"
-        f"[{datetime.datetime.now().strftime('%H:%M:%S')}] VehicleDemand.calc -> {demanda_total} kW\n"
-        f"[{datetime.datetime.now().strftime('%H:%M:%S')}] GridConsumption.calc -> {energia_rede_necessaria_kwh:.1f} kWh\n"
-        f"[{datetime.datetime.now().strftime('%H:%M:%S')}] RenewableShare.calc -> {percentual_renovavel:.1f}%\n"
-        f"[{datetime.datetime.now().strftime('%H:%M:%S')}] SustainabilityMode.status -> {status_sustentavel}",
-        language="json"
+        f"[{datetime.datetime.now().strftime('%H:%M:%S')}] Leitura da potência solar disponível -> {geracao_solar_disponivel} kW\n"
+        f"[{datetime.datetime.now().strftime('%H:%M:%S')}] Cálculo da demanda dos veículos -> {demanda_total} kW\n"
+        f"[{datetime.datetime.now().strftime('%H:%M:%S')}] Energia necessária da rede elétrica -> {energia_rede_necessaria_kwh:.1f} kWh\n"
+        f"[{datetime.datetime.now().strftime('%H:%M:%S')}] Percentual de energia renovável -> {percentual_renovavel:.1f}%\n"
+        f"[{datetime.datetime.now().strftime('%H:%M:%S')}] Status do modo sustentável -> {status_sustentavel}",
+        language="text"
     )
 
 st.markdown("---")
