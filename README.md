@@ -154,7 +154,7 @@ Exemplos de dados gerados:
 1. Clone o repositório:
 
 ```bash
-git clone [INSERIR LINK DO REPOSITÓRIO]
+git clone https://github.com/lucaslino28/sprint2-sers-chargegrid-sustentavel.git
 ```
 
 2. Acesse a pasta do projeto:
