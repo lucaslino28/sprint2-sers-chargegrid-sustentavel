@@ -151,6 +151,8 @@ Exemplos de dados gerados:
 
 ## Como Executar o Projeto
 
+> Observação: o projeto foi testado em Windows, macOS e Linux. Em Linux, recomenda-se utilizar ambiente virtual para garantir a instalação correta das dependências.
+
 1. Clone o repositório:
 
 ```bash
